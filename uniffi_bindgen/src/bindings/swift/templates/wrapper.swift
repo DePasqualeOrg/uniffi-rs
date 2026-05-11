@@ -15,7 +15,7 @@ import {{ imported_class }}
 // might be in a separate module, or it might be compiled inline into
 // this module. This is a bit of light hackery to work with both.
 #if canImport({{ config.ffi_module_name() }})
-import {{ config.ffi_module_name() }}
+{{ config.ffi_module_import_modifier() }}import {{ config.ffi_module_name() }}
 #endif
 
 {% include "RustBufferTemplate.swift" %}

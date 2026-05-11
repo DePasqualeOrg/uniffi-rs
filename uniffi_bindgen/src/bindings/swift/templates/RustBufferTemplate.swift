@@ -226,7 +226,7 @@ extension FfiConverterRustBuffer {
 #if swift(>=5.8)
     @_documentation(visibility: private)
 #endif
-    public static func lift(_ buf: RustBuffer) throws -> SwiftType {
+    {{ config.ffi_converter_visibility() }}static func lift(_ buf: RustBuffer) throws -> SwiftType {
         var reader = createReader(data: Data(rustBuffer: buf))
         let value = try read(from: &reader)
         if hasRemaining(reader) {
@@ -239,7 +239,7 @@ extension FfiConverterRustBuffer {
 #if swift(>=5.8)
     @_documentation(visibility: private)
 #endif
-    public static func lower(_ value: SwiftType) -> RustBuffer {
+    {{ config.ffi_converter_visibility() }}static func lower(_ value: SwiftType) -> RustBuffer {
           var writer = createWriter()
           write(value, into: &writer)
           return RustBuffer(bytes: writer)
