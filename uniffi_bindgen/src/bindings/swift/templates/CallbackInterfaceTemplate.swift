@@ -63,13 +63,13 @@ an external type by another crate.
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public func {{ ffi_converter_name }}_lift(_ handle: UInt64) throws -> {{ type_name }} {
+{{ config.ffi_converter_visibility() }}func {{ ffi_converter_name }}_lift(_ handle: UInt64) throws -> {{ type_name }} {
     return try {{ ffi_converter_name }}.lift(handle)
 }
 
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public func {{ ffi_converter_name }}_lower(_ v: {{ type_name }}) -> UInt64 {
+{{ config.ffi_converter_visibility() }}func {{ ffi_converter_name }}_lower(_ v: {{ type_name }}) -> UInt64 {
     return {{ ffi_converter_name }}.lower(v)
 }

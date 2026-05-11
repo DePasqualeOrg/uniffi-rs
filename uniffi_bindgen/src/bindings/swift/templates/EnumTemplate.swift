@@ -39,7 +39,7 @@ extension {{ type_name }}: Sendable {}
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public struct {{ ffi_converter_name }}: FfiConverterRustBuffer {
+{{ config.ffi_converter_visibility() }}struct {{ ffi_converter_name }}: FfiConverterRustBuffer {
     typealias SwiftType = {{ type_name }}
 
     public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> {{ type_name }} {
@@ -86,13 +86,13 @@ an external type by another crate.
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public func {{ ffi_converter_name }}_lift(_ buf: RustBuffer) throws -> {{ type_name }} {
+{{ config.ffi_converter_visibility() }}func {{ ffi_converter_name }}_lift(_ buf: RustBuffer) throws -> {{ type_name }} {
     return try {{ ffi_converter_name }}.lift(buf)
 }
 
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public func {{ ffi_converter_name }}_lower(_ value: {{ type_name }}) -> RustBuffer {
+{{ config.ffi_converter_visibility() }}func {{ ffi_converter_name }}_lower(_ value: {{ type_name }}) -> RustBuffer {
     return {{ ffi_converter_name }}.lower(value)
 }

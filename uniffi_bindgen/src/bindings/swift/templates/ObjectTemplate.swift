@@ -89,7 +89,7 @@ open class {{ impl_class_name }}: {{ protocol_name }}, {{ config.conformance_lis
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public struct {{ ffi_converter_name }}: FfiConverter {
+{{ config.ffi_converter_visibility() }}struct {{ ffi_converter_name }}: FfiConverter {
     typealias FfiType = UInt64
     typealias SwiftType = {{ type_name }}
 
@@ -126,7 +126,7 @@ public struct {{ ffi_converter_name }}: FfiConverter {
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public struct {{ ffi_converter_name }}: FfiConverter {
+{{ config.ffi_converter_visibility() }}struct {{ ffi_converter_name }}: FfiConverter {
     fileprivate static let handleMap = UniffiHandleMap<{{ type_name }}>()
 
     typealias FfiType = UInt64
@@ -176,14 +176,14 @@ an external type by another crate.
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public func {{ ffi_converter_name }}_lift(_ handle: UInt64) throws -> {{ type_name }} {
+{{ config.ffi_converter_visibility() }}func {{ ffi_converter_name }}_lift(_ handle: UInt64) throws -> {{ type_name }} {
     return try {{ ffi_converter_name }}.lift(handle)
 }
 
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public func {{ ffi_converter_name }}_lower(_ value: {{ type_name }}) -> UInt64 {
+{{ config.ffi_converter_visibility() }}func {{ ffi_converter_name }}_lower(_ value: {{ type_name }}) -> UInt64 {
     return {{ ffi_converter_name }}.lower(value)
 }
 
@@ -194,13 +194,13 @@ public func {{ ffi_converter_name }}_lower(_ value: {{ type_name }}) -> UInt64 {
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public struct {{ ffi_converter_name }}__as_error: FfiConverterRustBuffer {
-    public static func lift(_ buf: RustBuffer) throws -> {{ type_name }} {
+{{ config.ffi_converter_visibility() }}struct {{ ffi_converter_name }}__as_error: FfiConverterRustBuffer {
+    {{ config.ffi_converter_visibility() }}static func lift(_ buf: RustBuffer) throws -> {{ type_name }} {
         var reader = createReader(data: Data(rustBuffer: buf))
         return try {{ ffi_converter_name }}.read(from: &reader)
     }
 
-    public static func lower(_ value: {{ type_name }}) -> RustBuffer {
+    {{ config.ffi_converter_visibility() }}static func lower(_ value: {{ type_name }}) -> RustBuffer {
         fatalError("not implemented")
     }
 
@@ -217,14 +217,14 @@ public struct {{ ffi_converter_name }}__as_error: FfiConverterRustBuffer {
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public func {{ ffi_converter_name }}__as_error_lift(_ buf: RustBuffer) throws -> {{ type_name }} {
+{{ config.ffi_converter_visibility() }}func {{ ffi_converter_name }}__as_error_lift(_ buf: RustBuffer) throws -> {{ type_name }} {
     return try {{ ffi_converter_name }}__as_error.lift(buf)
 }
 
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
-public func {{ ffi_converter_name }}__as_error_lower(_ value: {{ type_name }}) -> RustBuffer {
+{{ config.ffi_converter_visibility() }}func {{ ffi_converter_name }}__as_error_lower(_ value: {{ type_name }}) -> RustBuffer {
     return {{ ffi_converter_name }}__as_error.lower(value)
 }
 

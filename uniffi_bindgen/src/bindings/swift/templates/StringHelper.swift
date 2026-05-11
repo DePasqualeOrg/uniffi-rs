@@ -5,7 +5,7 @@ fileprivate struct FfiConverterString: FfiConverter {
     typealias SwiftType = String
     typealias FfiType = RustBuffer
 
-    public static func lift(_ value: RustBuffer) throws -> String {
+    {{ config.ffi_converter_visibility() }}static func lift(_ value: RustBuffer) throws -> String {
         defer {
             value.deallocate()
         }
@@ -20,7 +20,7 @@ fileprivate struct FfiConverterString: FfiConverter {
         return String(decoding: bytes, as: UTF8.self)
     }
 
-    public static func lower(_ value: String) -> RustBuffer {
+    {{ config.ffi_converter_visibility() }}static func lower(_ value: String) -> RustBuffer {
         return value.utf8CString.withUnsafeBufferPointer { ptr in
             // The swift string gives us int8_t, we want uint8_t.
             ptr.withMemoryRebound(to: UInt8.self) { ptr in

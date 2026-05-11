@@ -168,6 +168,8 @@ pub struct Config {
     pub(super) module_name: Option<String>,
     ffi_module_name: Option<String>,
     ffi_module_filename: Option<String>,
+    implementation_only_ffi_module_import: Option<bool>,
+    internal_ffi_converter_helpers: Option<bool>,
     generate_module_map: Option<bool>,
     #[serde(default)]
     omit_checksums: bool,
@@ -242,6 +244,34 @@ impl Config {
         match self.ffi_module_filename.as_ref() {
             Some(name) => name.clone(),
             None => self.ffi_module_name(),
+        }
+    }
+
+    /// Whether to hide the lower-level C FFI module import from generated Swift clients.
+    pub fn implementation_only_ffi_module_import(&self) -> bool {
+        self.implementation_only_ffi_module_import.unwrap_or(false)
+    }
+
+    /// Prefix to apply to the lower-level C FFI module import.
+    pub fn ffi_module_import_modifier(&self) -> &'static str {
+        if self.implementation_only_ffi_module_import() {
+            "@_implementationOnly "
+        } else {
+            ""
+        }
+    }
+
+    /// Whether FFI converter helpers should be internal implementation details.
+    pub fn internal_ffi_converter_helpers(&self) -> bool {
+        self.internal_ffi_converter_helpers.unwrap_or(false)
+    }
+
+    /// Visibility prefix for generated FFI converter helper declarations.
+    pub fn ffi_converter_visibility(&self) -> &'static str {
+        if self.internal_ffi_converter_helpers() {
+            ""
+        } else {
+            "public "
         }
     }
 
