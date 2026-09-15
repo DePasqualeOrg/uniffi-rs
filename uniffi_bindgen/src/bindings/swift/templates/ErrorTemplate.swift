@@ -43,6 +43,7 @@ extension {{ type_name }}: Sendable {}
 @_documentation(visibility: private)
 #endif
 {{ config.ffi_converter_visibility() }}struct {{ ffi_converter_name }}: FfiConverterRustBuffer {
+    typealias FfiType = RustBuffer
     typealias SwiftType = {{ type_name }}
 
     public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> {{ type_name }} {

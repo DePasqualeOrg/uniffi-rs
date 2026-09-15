@@ -34,6 +34,8 @@ extension {{ type_name }}: Sendable {}
 @_documentation(visibility: private)
 #endif
 {{ config.ffi_converter_visibility() }}struct {{ ffi_converter_name }}: FfiConverterRustBuffer {
+    typealias FfiType = RustBuffer
+
     public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> {{ type_name }} {
         return {%- if rec.has_fields() %}
             try {{ type_name }}(

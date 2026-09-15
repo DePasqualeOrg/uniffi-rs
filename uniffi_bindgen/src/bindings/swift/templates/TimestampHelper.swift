@@ -2,6 +2,7 @@
 @_documentation(visibility: private)
 #endif
 fileprivate struct FfiConverterTimestamp: FfiConverterRustBuffer {
+    typealias FfiType = RustBuffer
     typealias SwiftType = Date
 
     public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> Date {

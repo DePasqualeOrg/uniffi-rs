@@ -220,7 +220,11 @@ extension FfiConverterPrimitive {
 
 // Types conforming to `FfiConverterRustBuffer` lift and lower into a `RustBuffer`.
 // Used for complex types where it's hard to write a custom lift/lower.
-fileprivate protocol FfiConverterRustBuffer: FfiConverter where FfiType == RustBuffer {}
+//
+// Conformers declare `typealias FfiType = RustBuffer` rather than inheriting a
+// `where FfiType == RustBuffer` constraint from the protocol: a requirement signature that names
+// `RustBuffer` is rejected when the FFI module is imported `@_implementationOnly`.
+fileprivate protocol FfiConverterRustBuffer: FfiConverter {}
 
 extension FfiConverterRustBuffer {
 #if swift(>=5.8)

@@ -2,6 +2,7 @@
 @_documentation(visibility: private)
 #endif
 fileprivate struct FfiConverterData: FfiConverterRustBuffer {
+    typealias FfiType = RustBuffer
     typealias SwiftType = Data
 
     public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> Data {

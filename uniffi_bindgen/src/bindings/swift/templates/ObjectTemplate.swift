@@ -195,6 +195,8 @@ an external type by another crate.
 @_documentation(visibility: private)
 #endif
 {{ config.ffi_converter_visibility() }}struct {{ ffi_converter_name }}__as_error: FfiConverterRustBuffer {
+    typealias FfiType = RustBuffer
+
     {{ config.ffi_converter_visibility() }}static func lift(_ buf: RustBuffer) throws -> {{ type_name }} {
         var reader = createReader(data: Data(rustBuffer: buf))
         return try {{ ffi_converter_name }}.read(from: &reader)

@@ -2,6 +2,7 @@
 @_documentation(visibility: private)
 #endif
 fileprivate struct FfiConverterDuration: FfiConverterRustBuffer {
+    typealias FfiType = RustBuffer
     typealias SwiftType = TimeInterval
 
     public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> TimeInterval {

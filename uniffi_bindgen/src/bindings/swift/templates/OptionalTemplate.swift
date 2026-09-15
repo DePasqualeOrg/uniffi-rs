@@ -2,6 +2,7 @@
 @_documentation(visibility: private)
 #endif
 fileprivate struct {{ ffi_converter_name }}: FfiConverterRustBuffer {
+    typealias FfiType = RustBuffer
     typealias SwiftType = {{ type_name }}
 
     public static func write(_ value: SwiftType, into buf: inout [UInt8]) {
